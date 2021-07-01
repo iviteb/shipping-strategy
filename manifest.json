@@ -1,0 +1,31 @@
+{
+  "vendor": "elefantqa",
+  "name": "shipping-strategy",
+  "version": "0.0.1",
+  "title": "Shipping Strategy",
+  "description": "Display the shipping strategies to sellers and limit their access",
+  "builders": {
+    "react": "3.x",
+    "admin": "0.x",
+    "messages": "1.x",
+    "node": "6.x",
+    "graphql": "1.x",
+    "docs": "0.x"
+  },
+  "dependencies": {
+    "vtex.styleguide": "9.x"
+  },
+  "registries": [
+    "smartcheckout"
+  ],
+  "policies": [
+    {
+      "name": "outbound-access",
+      "attrs": {
+        "host": "{{account}}.vtexcommercestable.com.br",
+        "path": "/api/*"
+      }
+    }
+  ],
+  "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"
+}
