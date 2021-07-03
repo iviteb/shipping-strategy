@@ -1,0 +1,17 @@
+type ShippingPolicyResponse {
+  items: [ShippingPolicy]
+}
+
+type ShippingPolicy {
+  id: String
+  name: String
+  shippingMethod: String
+  weekendAndHolidays: WeekendAndHolidaysSettings,
+  isActive: Boolean
+}
+
+type WeekendAndHolidaysSettings {
+  saturday: Boolean
+  sunday: Boolean
+  holiday: Boolean
+}

@@ -1,3 +1,6 @@
 {
-  
+  "admin.app.shipping-strategy": {
+    "component": "ShippingStrategy",
+    "path": "/admin/app/seller-shipping-strategy"
+  }
 }

@@ -1,0 +1,5 @@
+type Query {
+  listAllShippingPolicies: ShippingPolicyResponse
+  listAllWarehouses: [WarehouseResponse]
+  listAllDocks: [DockResponse]
+}
