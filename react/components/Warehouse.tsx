@@ -51,18 +51,12 @@ const Warehouse: FC<WarehouseProps> = ({ warehouses }) => {
   }))
 
   return (
-    <>
-      <div className={`tc`}>
-        <PageHeader title="Warehouse" />
-      </div>
-      <Table
-        fullWidth
-        schema={warehouseSchema}
-        items={warehouseItems}
-        density="medium"
-      />
-    </>
-    
+    <Table
+      fullWidth
+      schema={warehouseSchema}
+      items={warehouseItems}
+      density="medium"
+    />
   )
 }
 

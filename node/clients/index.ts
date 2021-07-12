@@ -3,6 +3,8 @@ import { IOClients } from '@vtex/api'
 import ShippingPolicies from './shipping'
 import Warehouses from './warehouse'
 import Docks from './dock'
+import ShippingRates from './freight'
+import Promotions from './promotion'
 
 export class Clients extends IOClients {
   
@@ -16,5 +18,13 @@ export class Clients extends IOClients {
 
   public get dock() {
     return this.getOrSet('dock', Docks)
+  }
+
+  public get shippingRate() {
+    return this.getOrSet('shippingRate', ShippingRates)
+  }
+
+  public get promotion() {
+    return this.getOrSet('promotion', Promotions)
   }
 }

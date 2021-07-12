@@ -51,18 +51,12 @@ const Dock: FC<DockProps> = ({ docks }) => {
   }))
 
   return (
-    <>
-      <div className={`tc`}>
-        <PageHeader title="Dock" />
-      </div>
-      <Table
-        fullWidth
-        schema={dockSchema}
-        items={dockItems}
-        density="medium"
-      />
-    </>
-    
+    <Table
+      fullWidth
+      schema={dockSchema}
+      items={dockItems}
+      density="medium"
+    />
   )
 }
 

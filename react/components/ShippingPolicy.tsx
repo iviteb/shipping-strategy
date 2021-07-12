@@ -1,26 +1,68 @@
 import React, { useState, FC } from 'react'
+import { useMutation, useLazyQuery } from 'react-apollo'
 import { useIntl } from 'react-intl'
 import { 
   Table, 
   Tag, 
-  Button, 
-  IconEdit, 
+  ButtonWithIcon, 
+  IconEdit,
   PageHeader,
   Modal, 
   Input,
+  Toggle,
   Box
 } from 'vtex.styleguide'
+import UPDATE_SHIPPING from '../graphql/updateShipping.graphql'
+import GET_SHIPPING_POLICIES from '../graphql/shipping.graphql'
 
 interface ShippingPolicyProps {
   policies: any
 }
 
-const ShippingPolicy: FC<ShippingPolicyProps> = ({ policies }) => {
+interface ShippingPolicyInput {
+  id: String
+  name: String
+  shippingMethod: String
+  isSaturdayActive: Boolean
+  isSundayActive: Boolean
+  isHolidayActive: Boolean
+  largestMeasure: Number
+  maxMeasureSum: Number
+  isActive: Boolean
+}
 
+const ShippingPolicy: FC<ShippingPolicyProps> = ({ policies }) => {
+  
   if (!policies) return null
+
+  const [shippingPolicy, setShippingPolicy] = useState<ShippingPolicyInput>({
+    id: policies.listAllShippingPolicies.items[0].id,
+    name: policies.listAllShippingPolicies.items[0].name,
+    shippingMethod: policies.listAllShippingPolicies.items[0].shippingMethod,
+    isSaturdayActive: policies.listAllShippingPolicies.items[0].weekendAndHolidays.saturday,
+    isSundayActive: policies.listAllShippingPolicies.items[0].weekendAndHolidays.sunday,
+    isHolidayActive: policies.listAllShippingPolicies.items[0].weekendAndHolidays.holiday,
+    largestMeasure: policies.listAllShippingPolicies.items[0].maxDimension.largestMeasure,
+    maxMeasureSum: policies.listAllShippingPolicies.items[0].maxDimension.maxMeasureSum,
+    isActive: policies.listAllShippingPolicies.items[0].isActive
+  })
+
+  const [updateShippingPolicy] = useMutation(UPDATE_SHIPPING, {
+    refetchQueries: [
+      { query: GET_SHIPPING_POLICIES }
+    ]
+  })
 
   const [isModalOpen, setIsModalOpen] = useState(false)
   const intl = useIntl()
+
+  const handleSubmit = async () => {
+    updateShippingPolicy({variables: {
+      ...shippingPolicy
+    }})
+
+    handleModalClose()
+  }
 
   const handleModalOpen = () => {
     setIsModalOpen(true)
@@ -68,12 +110,13 @@ const ShippingPolicy: FC<ShippingPolicyProps> = ({ policies }) => {
         }),
         cellRenderer: () => {
           return (
-            <Button
+            <ButtonWithIcon
+              icon={<IconEdit />}
               variation={"tertiary"}
               onClick={() => handleModalOpen()}
             > 
-              <IconEdit />
-            </Button>
+              Edit
+            </ButtonWithIcon>
           );
         }
       }
@@ -89,9 +132,6 @@ const ShippingPolicy: FC<ShippingPolicyProps> = ({ policies }) => {
 
   return (
     <>
-      <div className={`tc`}>
-        <PageHeader title="Shipping policy" />
-      </div>
       <Table
         fullWidth
         schema={shippingStrategySchema}
@@ -120,13 +160,63 @@ const ShippingPolicy: FC<ShippingPolicyProps> = ({ policies }) => {
                   />
                 </div>
               </div>
-              <div className={`flex`}>
+              <div className={`flex mb4`}>
                 <Input
                   value={policies.listAllShippingPolicies.items[0].shippingMethod}
                   readOnly={true}
                   label="Shipping method"
                 />
               </div>
+              <div className={`flex mb4`}>
+                <Toggle 
+                  semantic
+                  label="Holiday"
+                  size="large"
+                  checked={shippingPolicy.isHolidayActive}
+                  onChange={() => {
+                    setShippingPolicy({
+                      ...shippingPolicy,
+                      isHolidayActive: !shippingPolicy.isHolidayActive
+                    })
+                  }}
+                />
+              </div>
+              <div className={`flex mb4`}>
+                <Toggle 
+                  semantic
+                  label="Saturday"
+                  size="large"
+                  checked={shippingPolicy.isSaturdayActive}
+                  onChange={() => {
+                    setShippingPolicy({
+                      ...shippingPolicy,
+                      isSaturdayActive: !shippingPolicy.isSaturdayActive
+                    })
+                  }}
+                />
+              </div>
+              <div className={`flex mb4`}>
+                <Toggle 
+                  semantic
+                  label="Sunday"
+                  size="large"
+                  checked={shippingPolicy.isSundayActive}
+                  onChange={() => {
+                    setShippingPolicy({
+                      ...shippingPolicy,
+                      isSundayActive: !shippingPolicy.isSundayActive
+                    })
+                  }}
+                />
+              </div>
+
+              <ButtonWithIcon
+                icon={<IconEdit />}
+                variation={"tertiary"}
+                onClick={handleSubmit}
+              > 
+                Update
+              </ButtonWithIcon>
             </Box>
           </div>
       </Modal>

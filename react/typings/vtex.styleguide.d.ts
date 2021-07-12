@@ -37,6 +37,7 @@ declare module 'vtex.styleguide' {
   export const NumericStepper
   export const EmptyState
   export const Tab
+  export const IconPlus
   export const IconEdit
   export const Tag
   export const Layout
@@ -44,4 +45,5 @@ declare module 'vtex.styleguide' {
   export const Divider
   export const PageBlock
   export const Progress
+  export const InputButton
 }

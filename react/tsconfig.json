@@ -6,6 +6,7 @@
     "lib": ["dom"],
     "module": "esnext",
     "moduleResolution": "node",
+    "noUnusedLocals": false,
     "target": "es2017"
   },
   "include": ["./typings/*.d.ts", "./**/*.tsx", "./**/*.ts"]

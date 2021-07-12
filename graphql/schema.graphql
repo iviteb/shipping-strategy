@@ -2,4 +2,23 @@ type Query {
   listAllShippingPolicies: ShippingPolicyResponse
   listAllWarehouses: [WarehouseResponse]
   listAllDocks: [DockResponse]
+  listShippingRate(carrierId: String, zipCode: String): [ShippingRateResponse]
+  listPromotionById(promotionId: String): Promotion
+  listAllPromotions: PromotionResponse
+}
+
+type Mutation {
+  updateShippingPolicy(input: ShippingPolicyInput!): ShippingPolicy
+}
+
+input ShippingPolicyInput {
+  id: String
+  name: String
+  shippingMethod: String
+  isHolidayActive: Boolean
+  isSaturdayActive: Boolean
+  isSundayActive: Boolean
+  largestMeasure: Float
+  maxMeasureSum: Float
+  isActive: Boolean
 }

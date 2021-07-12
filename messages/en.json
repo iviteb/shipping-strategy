@@ -1,8 +1,15 @@
 {
   "admin/shipping-strategy.navigation.label": "Seller shipping strategy",
   "admin/shipping-strategy.navigation.search.kws": "seller, shipping, strategy",
+  "admin/shipping-strategy.table-columns.edit": "Edit",
   "admin/shipping-strategy.table-columns.name": "Name",
   "admin/shipping-strategy.table-columns.shippingMethod": "Shipping Method",
   "admin/shipping-strategy.table-columns.isActive": "Status",
-  "admin/shipping-strategy.table-columns.actions": "Actions"
+  "admin/shipping-strategy.table-columns.actions": "Actions",
+  "admin/shipping-rate.table-columns.postal-code-range": "Postal code range",
+  "admin/shipping-rate.table-columns.weight-range": "Weight range",
+  "admin/shipping-rate.table-columns.country": "Country",
+  "admin/shipping-rate.table-columns.shipping-rate": "Shipping rate",
+  "admin/shipping-rate.table-columns.delivery-time": "Delivery time",
+  "admin/shipping-rate.days": " days"
 }

@@ -9,6 +9,10 @@ query getAllShippingPolicies {
         sunday,
         holiday
       },
+      maxDimension {
+        largestMeasure,
+        maxMeasureSum
+      },
       isActive
     }
   }
