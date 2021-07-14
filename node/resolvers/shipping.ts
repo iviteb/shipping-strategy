@@ -2,7 +2,7 @@ export const queries = {
   listAllShippingPolicies: (_: any, __: any, { clients: { shippingPolicy } }: Context) => shippingPolicy.listAllShippingPolicies()
 }
  
- export const mutations = { 
+export const mutations = { 
   updateShippingPolicy: async (_: any, args: any, { clients: { shippingPolicy } }: Context) => {
     const data = {
       name: args.input.name,

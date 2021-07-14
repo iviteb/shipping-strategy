@@ -1,12 +1,11 @@
 import React, { useState, FC } from 'react'
-import { useMutation, useLazyQuery } from 'react-apollo'
+import { useMutation } from 'react-apollo'
 import { useIntl } from 'react-intl'
 import { 
   Table, 
   Tag, 
   ButtonWithIcon, 
   IconEdit,
-  PageHeader,
   Modal, 
   Input,
   Toggle,

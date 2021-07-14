@@ -2,13 +2,15 @@ type Query {
   listAllShippingPolicies: ShippingPolicyResponse
   listAllWarehouses: [WarehouseResponse]
   listAllDocks: [DockResponse]
-  listShippingRate(carrierId: String, zipCode: String): [ShippingRateResponse]
+  listShippingRate(carrierId: String, zipCode: String): [ShippingRate]
   listPromotionById(promotionId: String): Promotion
   listAllPromotions: PromotionResponse
 }
 
 type Mutation {
   updateShippingPolicy(input: ShippingPolicyInput!): ShippingPolicy
+  updateShippingRate(carrierId: String, searchZipCode: String, input: [ShippingRateInput]): ShippingRate
+  createOrUpdatePromotion(newTotalValueCeling: Int, promotionId: String): Promotion
 }
 
 input ShippingPolicyInput {
@@ -21,4 +23,20 @@ input ShippingPolicyInput {
   largestMeasure: Float
   maxMeasureSum: Float
   isActive: Boolean
+}
+
+input ShippingRateInput {
+  zipCodeStart: String
+  zipCodeEnd: String
+  weightStart: Int
+  weightEnd: Int
+  absoluteMoneyCost: String
+  pricePercent: Int
+  pricePercentByWeight: Int
+  maxVolume: Int
+  timeCost: String
+  country: String
+  operationType: Int
+  polygon: String
+  minimumValueInsurance: Int
 }

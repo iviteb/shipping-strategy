@@ -4,8 +4,14 @@ import {
 } from './shipping'
 import { queries as warehouseQueries } from './warehouse'
 import { queries as dockQueries } from './dock'
-import { queries as freightQueries } from './freight'
-import { queries as promotionQueries } from './promotion'
+import { 
+  queries as freightQueries,
+  mutations as freightMutations
+} from './freight'
+import { 
+  queries as promotionQueries,
+  mutations as promotionMutations
+} from './promotion'
 
 export const resolvers = {
   Query: {
@@ -16,6 +22,8 @@ export const resolvers = {
     ...promotionQueries
   },
   Mutation: {
-    ...shippingMutations
+    ...shippingMutations,
+    ...freightMutations,
+    ...promotionMutations
   }
 }

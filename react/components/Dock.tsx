@@ -1,7 +1,6 @@
 import React, { FC } from 'react'
 import { useIntl } from 'react-intl'
 import { 
-  PageHeader,
   Table, 
   Tag
 } from 'vtex.styleguide'

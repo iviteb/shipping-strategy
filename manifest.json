@@ -39,6 +39,13 @@
         "host": "logistics.vtexcommercestable.com.br",
         "path": "/api/logistics/*"
       }
+    },
+    {
+      "name": "outbound-access",
+      "attrs": {
+        "host": "*.myvtex.com",
+        "path": "*"
+      }
     }
   ],
   "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"
