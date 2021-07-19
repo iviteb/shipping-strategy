@@ -43,7 +43,7 @@ const Promotion: FC<PromotionProps> = ({ promotion, idCalculatorConfiguration })
   const handlePromotionToggleChange = () => {
     createOrUpdatePromotion({
       variables: {
-        newTotalValueCeling: freeDeliveryThreshold !== 0 ? freeDeliveryThreshold : promotion.listPromotionById.totalValueCeling,
+        newTotalValueFloor: freeDeliveryThreshold !== 0 ? freeDeliveryThreshold : promotion.listPromotionById.totalValueFloor,
         promotionId: idCalculatorConfiguration,
         beginDateUtc: promotion.listPromotionById.beginDateUtc,
         endDateUtc: promotion.listPromotionById.endDateUtc,
@@ -57,7 +57,7 @@ const Promotion: FC<PromotionProps> = ({ promotion, idCalculatorConfiguration })
   const handlePromotionSubmit = () => {
     createOrUpdatePromotion({
       variables: {
-        newTotalValueCeling: freeDeliveryThreshold !== 0 ? freeDeliveryThreshold : promotion.listPromotionById.totalValueCeling,
+        newTotalValueFloor: freeDeliveryThreshold !== 0 ? freeDeliveryThreshold : promotion.listPromotionById.totalValueFloor,
         promotionId: idCalculatorConfiguration,
         beginDateUtc: promotion.listPromotionById.beginDateUtc,
         endDateUtc: promotion.listPromotionById.endDateUtc,
@@ -94,7 +94,7 @@ const Promotion: FC<PromotionProps> = ({ promotion, idCalculatorConfiguration })
   const promotionItems = [{
     id: promotion.listPromotionById.idCalculatorConfiguration,
     name: promotion.listPromotionById.name,
-    freeDeliveryThreshold: promotion.listPromotionById.totalValueCeling
+    freeDeliveryThreshold: promotion.listPromotionById.totalValueFloor
   }]
 
   return (
@@ -105,18 +105,18 @@ const Promotion: FC<PromotionProps> = ({ promotion, idCalculatorConfiguration })
           label={intl.formatMessage({id: 'admin/promotion.label.isActive'})}
           size="large"
           checked={isActive}
-          onChange={handleToggleChange}
+          onChange={() => handleToggleChange()}
         />
       </div>
-      <form onSubmit={handlePromotionSubmit}>
+      {isActive && <form onSubmit={handlePromotionSubmit}>
         <InputButton 
           placeholder={intl.formatMessage({id: 'admin/promotion.input-button.placeholder'})}
           size="regular" 
           button="Submit" 
           onChange={handlePromotionChange}
         />
-      </form>
-      {promotion && <Table
+      </form>}
+      {promotion && isActive && <Table
         fullWidth
         schema={promotionSchema}
         items={promotionItems}

@@ -11,7 +11,7 @@ type Mutation {
   updateShippingPolicy(input: ShippingPolicyInput!): ShippingPolicy
   updateShippingRate(carrierId: String, searchZipCode: String, input: [ShippingRateInput]): ShippingRate
   createOrUpdatePromotion(
-    newTotalValueCeling: Int, 
+    newTotalValueFloor: Int, 
     promotionId: String, 
     beginDateUtc: String, 
     endDateUtc: String, 

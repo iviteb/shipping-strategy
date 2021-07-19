@@ -1,12 +1,12 @@
 mutation createOrUpdatePromotion(
-  $newTotalValueCeling: Int, 
+  $newTotalValueFloor: Int, 
   $promotionId: String,
   $beginDateUtc: String,
   $endDateUtc: String,
   $isActive: Boolean
 ) {
   createOrUpdatePromotion(
-    newTotalValueCeling: $newTotalValueCeling, 
+    newTotalValueFloor: $newTotalValueFloor, 
     promotionId: $promotionId,
     beginDateUtc: $beginDateUtc,
     endDateUtc: $endDateUtc,

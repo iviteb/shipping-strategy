@@ -39,14 +39,14 @@ export default class Promotions extends JanusClient {
   }
 
   public createOrUpdatePromotion = (
-    newTotalValueCeling: number,
+    newTotalValueFloor: number,
     promotionId: string,
     beginDateUtc: string,
     endDateUtc: string,
     isActive: boolean
   ): Promise<string> => {
     const defaultPromotion = CREATE_PROMOTION_OBJECT
-    defaultPromotion.totalValueCeling = newTotalValueCeling
+    defaultPromotion.totalValueFloor = newTotalValueFloor
     defaultPromotion.idCalculatorConfiguration = promotionId
     defaultPromotion.beginDateUtc = beginDateUtc
     defaultPromotion.endDateUtc = endDateUtc

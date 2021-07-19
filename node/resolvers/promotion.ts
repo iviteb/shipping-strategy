@@ -6,7 +6,7 @@ export const queries = {
 export const mutations = {
   createOrUpdatePromotion: async (_: any, args: any, { clients: { promotion } }: Context) => {
     return promotion.createOrUpdatePromotion(
-      args.newTotalValueCeling,
+      args.newTotalValueFloor,
       args.promotionId,
       args.beginDateUtc,
       args.endDateUtc,
