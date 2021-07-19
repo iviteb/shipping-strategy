@@ -1,6 +1,6 @@
 {
   "section": "orders",
-  "titleId": "admin/shipping-strategy.navigation.label",
-  "searchKeyWordsHelpers": "admin/shipping-strategy.navigation.search.kws",
-  "path": "/admin/seller-shipping-strategy"
+  "titleId": "admin/delivery-settings.navigation.label",
+  "searchKeyWordsHelpers": "admin/delivery-settings.navigation.search.kws",
+  "path": "/admin/delivery-settings"
 }

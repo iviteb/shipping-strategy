@@ -5,6 +5,7 @@ export const CREATE_PROMOTION_OBJECT = {
   },
   name: "Free delivery",
   beginDateUtc: "",
+  endDateUtc: "",
   daysAgoOfPurchases: 0,
   isActive: true,
   isFeatured: false,

@@ -18,24 +18,17 @@ const Dock: FC<DockProps> = ({ docks }) => {
   const dockSchema = {
     properties: {
       id: {
-        title: 'ID',
-        width: 80
+        title: intl.formatMessage({id: 'admin/dock.label.id'}),
       },
       name: {
-        title: intl.formatMessage({
-          id: 'admin/shipping-strategy.table-columns.name'
-        }),
-        width: 170,
+        title: intl.formatMessage({id: 'admin/dock.label.name'}),
       },
       isActive: {
-        title: intl.formatMessage({
-          id: 'admin/shipping-strategy.table-columns.isActive'
-        }),
-        width: 150,
+        title: intl.formatMessage({id: 'admin/dock.label.status'}),
         cellRenderer: ({ cellData }: any) => {
           return (
             <Tag type={cellData ? "success" : "regular"}>
-              {cellData ? "Active" : "Inactive"}
+              {cellData ? intl.formatMessage({id: 'admin/dock.active.success'}) : intl.formatMessage({id: 'admin/dock.active.regular'})}
             </Tag>
           )
         },
@@ -50,12 +43,14 @@ const Dock: FC<DockProps> = ({ docks }) => {
   }))
 
   return (
-    <Table
-      fullWidth
-      schema={dockSchema}
-      items={dockItems}
-      density="medium"
-    />
+    <div className={`pt6`}>
+      <Table
+        fullWidth={true}
+        schema={dockSchema}
+        items={dockItems}
+        density="medium"
+      />
+    </div>
   )
 }
 

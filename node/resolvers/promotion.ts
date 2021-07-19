@@ -3,8 +3,14 @@ export const queries = {
   listAllPromotions: (_: any, __: any, { clients: { promotion } }: Context) => promotion.listAllPromotions()
 }
 
-export const mutations = { 
+export const mutations = {
   createOrUpdatePromotion: async (_: any, args: any, { clients: { promotion } }: Context) => {
-    return promotion.createOrUpdatePromotion(args.newTotalValueCeling, args.promotionId)
+    return promotion.createOrUpdatePromotion(
+      args.newTotalValueCeling,
+      args.promotionId,
+      args.beginDateUtc,
+      args.endDateUtc,
+      args.isActive
+    )
   }
 }

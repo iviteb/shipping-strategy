@@ -1,8 +1,8 @@
-import { 
-  InstanceOptions, 
-  IOContext, 
-  JanusClient, 
-  RequestConfig 
+import {
+  InstanceOptions,
+  IOContext,
+  JanusClient,
+  RequestConfig
 } from '@vtex/api'
 import { pipe } from 'ramda'
 import { statusToError } from '../utils'
@@ -11,14 +11,14 @@ const TWO_SECONDS = 2 * 1000
 
 const withCookieAsHeader =
   (context: IOContext) =>
-  (options: InstanceOptions): InstanceOptions => ({
-    ...options,
-    headers: {
-      VtexIdclientAutCookie: context.adminUserAuthToken ?? '',
-      ...(options?.headers ?? {}),
-    },
-    timeout: TWO_SECONDS
-  })
+    (options: InstanceOptions): InstanceOptions => ({
+      ...options,
+      headers: {
+        VtexIdclientAutCookie: context.adminUserAuthToken ?? '',
+        ...(options?.headers ?? {}),
+      },
+      timeout: TWO_SECONDS
+    })
 
 export default class ShippingPolicies extends JanusClient {
   constructor(context: IOContext, options?: InstanceOptions) {
@@ -41,7 +41,7 @@ export default class ShippingPolicies extends JanusClient {
 
   protected put = <T>(url: string, data?: any, config?: RequestConfig) =>
     this.http.put<T>(url, data, config).catch<any>(statusToError)
-  
+
 
   private get routes() {
     const basePVT = '/api/logistics'

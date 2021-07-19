@@ -1,5 +1,17 @@
-mutation createOrUpdatePromotion($newTotalValueCeling: Int, $promotionId: String) {
-  createOrUpdatePromotion(newTotalValueCeling: $newTotalValueCeling, promotionId: $promotionId) {
+mutation createOrUpdatePromotion(
+  $newTotalValueCeling: Int, 
+  $promotionId: String,
+  $beginDateUtc: String,
+  $endDateUtc: String,
+  $isActive: Boolean
+) {
+  createOrUpdatePromotion(
+    newTotalValueCeling: $newTotalValueCeling, 
+    promotionId: $promotionId,
+    beginDateUtc: $beginDateUtc,
+    endDateUtc: $endDateUtc,
+    isActive: $isActive
+  ) {
     idCalculatorConfiguration,
     name,
     description,

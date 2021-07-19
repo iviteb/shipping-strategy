@@ -1,8 +1,8 @@
-import { 
-  InstanceOptions, 
-  IOContext, 
-  JanusClient, 
-  RequestConfig 
+import {
+  InstanceOptions,
+  IOContext,
+  JanusClient,
+  RequestConfig
 } from '@vtex/api'
 import { pipe } from 'ramda'
 import { statusToError } from '../utils'
@@ -12,18 +12,18 @@ const TWO_SECONDS = 2 * 1000
 
 const withCookieAsHeader =
   (context: IOContext) =>
-  (options: InstanceOptions): InstanceOptions => ({
-    ...options,
-    headers: {
-      Accept: 'application/vnd.vtex.pricing.v3+json',
-      'Cache-Control': 'no-cache',
-      'Content-Type': 'application/json',
-      'X-Vtex-Use-Https': 'true',
-      VtexIdclientAutCookie: context.adminUserAuthToken ?? '',
-      ...(options?.headers ?? {}),
-    },
-    timeout: TWO_SECONDS
-  })
+    (options: InstanceOptions): InstanceOptions => ({
+      ...options,
+      headers: {
+        Accept: 'application/vnd.vtex.pricing.v3+json',
+        'Cache-Control': 'no-cache',
+        'Content-Type': 'application/json',
+        'X-Vtex-Use-Https': 'true',
+        VtexIdclientAutCookie: context.adminUserAuthToken ?? '',
+        ...(options?.headers ?? {}),
+      },
+      timeout: TWO_SECONDS
+    })
 
 export default class Promotions extends JanusClient {
   constructor(context: IOContext, options?: InstanceOptions) {
@@ -38,13 +38,28 @@ export default class Promotions extends JanusClient {
     return this.get(this.routes.allPromotions)
   }
 
-  public createOrUpdatePromotion = (newTotalValueCeling: number, promotionId: string | undefined): Promise<string> => {
+  public createOrUpdatePromotion = (
+    newTotalValueCeling: number,
+    promotionId: string,
+    beginDateUtc: string,
+    endDateUtc: string,
+    isActive: boolean
+  ): Promise<string> => {
     const defaultPromotion = CREATE_PROMOTION_OBJECT
     defaultPromotion.totalValueCeling = newTotalValueCeling
-    defaultPromotion.idCalculatorConfiguration = promotionId ?? ""
-    defaultPromotion.beginDateUtc = new Date().toISOString()
+    defaultPromotion.idCalculatorConfiguration = promotionId
+    defaultPromotion.beginDateUtc = beginDateUtc
+    defaultPromotion.endDateUtc = endDateUtc
+    defaultPromotion.isActive = isActive
 
-    console.log(defaultPromotion)
+    if (!promotionId.length) {
+      var date = new Date()
+      defaultPromotion.beginDateUtc = date.toISOString()
+
+      date.setFullYear(date.getFullYear() + 3)
+      defaultPromotion.endDateUtc = date.toISOString()
+    }
+
     return this.post(this.routes.createOrUpdatePromotion, defaultPromotion)
   }
 

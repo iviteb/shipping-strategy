@@ -2,14 +2,11 @@ import React, { useState, FC } from 'react'
 import { useMutation } from 'react-apollo'
 import { useIntl } from 'react-intl'
 import { 
-  Table, 
-  Tag, 
   ButtonWithIcon, 
   IconEdit,
-  Modal, 
   Input,
   Toggle,
-  Box
+  ToastConsumer
 } from 'vtex.styleguide'
 import UPDATE_SHIPPING from '../graphql/updateShipping.graphql'
 import GET_SHIPPING_POLICIES from '../graphql/shipping.graphql'
@@ -52,174 +49,111 @@ const ShippingPolicy: FC<ShippingPolicyProps> = ({ policies }) => {
     ]
   })
 
-  const [isModalOpen, setIsModalOpen] = useState(false)
   const intl = useIntl()
 
-  const handleSubmit = async () => {
-    updateShippingPolicy({variables: {
+  const handleSubmit = async (showToast: any) => {
+    await updateShippingPolicy({variables: {
       ...shippingPolicy
-    }})
-
-    handleModalClose()
-  }
-
-  const handleModalOpen = () => {
-    setIsModalOpen(true)
-  }
-
-  const handleModalClose = () => {
-    setIsModalOpen(false)
-  }
-
-  const shippingStrategySchema = {
-    properties: {
-      id: {
-        title: 'ID',
-        width: 80
-      },
-      name: {
-        title: intl.formatMessage({
-          id: 'admin/shipping-strategy.table-columns.name'
+    }}).catch(err => {
+      console.error(err)
+      showToast({
+        message: intl.formatMessage({
+          id: 'admin/shipping-policy.toast.failure',
         }),
-        width: 180,
-      },
-      shippingMethod: {
-        title: intl.formatMessage({
-          id: 'admin/shipping-strategy.table-columns.shippingMethod'
+        duration: 5000,
+      })
+    })
+    .then(() => {
+      showToast({
+        message: intl.formatMessage({
+          id: 'admin/shipping-policy.toast.success',
         }),
-        width: 180,
-      },
-      isActive: {
-        title: intl.formatMessage({
-          id: 'admin/shipping-strategy.table-columns.isActive'
-        }),
-        width: 180,
-        cellRenderer: ({ cellData }: any) => {
-          return (
-            <Tag type={cellData ? "success" : "regular"}>
-              {cellData ? "Active" : "Inactive"}
-            </Tag>
-          )
-        },
-      },
-      actions: {
-        width: 180,
-        title: intl.formatMessage({
-          id: 'admin/shipping-strategy.table-columns.actions'
-        }),
-        cellRenderer: () => {
-          return (
-            <ButtonWithIcon
-              icon={<IconEdit />}
-              variation={"tertiary"}
-              onClick={() => handleModalOpen()}
-            > 
-              Edit
-            </ButtonWithIcon>
-          );
-        }
-      }
-    },
+        duration: 5000,
+      })
+    })
   }
-
-  const shippingPolicyItems = policies.listAllShippingPolicies.items.map((policy: any) => ({
-    id: policy.id,
-    name: policy.name,
-    shippingMethod: policy.shippingMethod,
-    isActive: policy.isActive
-  }))
 
   return (
-    <>
-      <Table
-        fullWidth
-        schema={shippingStrategySchema}
-        items={shippingPolicyItems}
-        density="medium"
-      />
-      <Modal
-        centered
-        isOpen={isModalOpen}
-        onClose={() => handleModalClose()}>
-          <div className={`pt8`}>
-            <Box title="Shipping policy">
-              <div className={`flex mb4`}>
-                <div className={`w-50 mr4`}>
-                  <Input
-                    value={policies.listAllShippingPolicies.items[0].name}
-                    readOnly={true}
-                    label="Name"
-                  />
-                </div>
-                <div className={`w-50`}>
-                  <Input
-                    value={policies.listAllShippingPolicies.items[0].id}
-                    readOnly={true}
-                    label="ID"
-                  />
-                </div>
-              </div>
-              <div className={`flex mb4`}>
-                <Input
-                  value={policies.listAllShippingPolicies.items[0].shippingMethod}
-                  readOnly={true}
-                  label="Shipping method"
-                />
-              </div>
-              <div className={`flex mb4`}>
-                <Toggle 
-                  semantic
-                  label="Holiday"
-                  size="large"
-                  checked={shippingPolicy.isHolidayActive}
-                  onChange={() => {
-                    setShippingPolicy({
-                      ...shippingPolicy,
-                      isHolidayActive: !shippingPolicy.isHolidayActive
-                    })
-                  }}
-                />
-              </div>
-              <div className={`flex mb4`}>
-                <Toggle 
-                  semantic
-                  label="Saturday"
-                  size="large"
-                  checked={shippingPolicy.isSaturdayActive}
-                  onChange={() => {
-                    setShippingPolicy({
-                      ...shippingPolicy,
-                      isSaturdayActive: !shippingPolicy.isSaturdayActive
-                    })
-                  }}
-                />
-              </div>
-              <div className={`flex mb4`}>
-                <Toggle 
-                  semantic
-                  label="Sunday"
-                  size="large"
-                  checked={shippingPolicy.isSundayActive}
-                  onChange={() => {
-                    setShippingPolicy({
-                      ...shippingPolicy,
-                      isSundayActive: !shippingPolicy.isSundayActive
-                    })
-                  }}
-                />
-              </div>
+    <div className={`pt6`}>
+      <div className={`flex mb4`}>
+        <div className={`w-50 mr4`}>
+          <Input
+            value={policies.listAllShippingPolicies.items[0].name}
+            readOnly={true}
+            label={intl.formatMessage({id: 'admin/shipping-policy.label.name'})}
+          />
+        </div>
+        <div className={`w-50`}>
+          <Input
+            value={policies.listAllShippingPolicies.items[0].id}
+            readOnly={true}
+            label={intl.formatMessage({id: 'admin/shipping-policy.label.id'})}
+          />
+        </div>
+      </div>
+      <div className={`flex mb4`}>
+        <Input
+          value={policies.listAllShippingPolicies.items[0].shippingMethod}
+          readOnly={true}
+          label={intl.formatMessage({id: 'admin/shipping-policy.label.shipping-method'})}
+        />
+      </div>
+      <div className={`flex mb4`}>
+        <Toggle 
+          semantic
+          label={intl.formatMessage({id: 'admin/shipping-policy.label.holiday'})}
+          size="large"
+          checked={shippingPolicy.isHolidayActive}
+          onChange={() => {
+            setShippingPolicy({
+              ...shippingPolicy,
+              isHolidayActive: !shippingPolicy.isHolidayActive
+            })
+          }}
+        />
+      </div>
+      <div className={`flex mb4`}>
+        <Toggle 
+          semantic
+          label={intl.formatMessage({id: 'admin/shipping-policy.label.saturday'})}
+          size="large"
+          checked={shippingPolicy.isSaturdayActive}
+          onChange={() => {
+            setShippingPolicy({
+              ...shippingPolicy,
+              isSaturdayActive: !shippingPolicy.isSaturdayActive
+            })
+          }}
+        />
+      </div>
+      <div className={`flex mb4`}>
+        <Toggle 
+          semantic
+          label={intl.formatMessage({id: 'admin/shipping-policy.label.sunday'})}
+          size="large"
+          checked={shippingPolicy.isSundayActive}
+          onChange={() => {
+            setShippingPolicy({
+              ...shippingPolicy,
+              isSundayActive: !shippingPolicy.isSundayActive
+            })
+          }}
+        />
+      </div>
 
-              <ButtonWithIcon
-                icon={<IconEdit />}
-                variation={"tertiary"}
-                onClick={handleSubmit}
-              > 
-                Update
-              </ButtonWithIcon>
-            </Box>
-          </div>
-      </Modal>
-    </>
+      <ToastConsumer>
+        {({ showToast }: { showToast: any }) => (
+          <ButtonWithIcon
+            icon={<IconEdit />}
+            variation={"tertiary"}
+            onClick={() => handleSubmit(showToast)}
+          > 
+          {intl.formatMessage({id: 'admin/shipping-policy.button.update'})}
+          </ButtonWithIcon>
+        )}
+      </ToastConsumer>
+      
+    </div>
   )
 }
 

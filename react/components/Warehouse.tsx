@@ -18,24 +18,17 @@ const Warehouse: FC<WarehouseProps> = ({ warehouses }) => {
   const warehouseSchema = {
     properties: {
       id: {
-        title: 'ID',
-        width: 80
+        title: intl.formatMessage({id: 'admin/warehouse.label.id'}),
       },
       name: {
-        title: intl.formatMessage({
-          id: 'admin/shipping-strategy.table-columns.name'
-        }),
-        width: 170,
+        title: intl.formatMessage({id: 'admin/warehouse.label.name'}),
       },
       isActive: {
-        title: intl.formatMessage({
-          id: 'admin/shipping-strategy.table-columns.isActive'
-        }),
-        width: 150,
+        title: intl.formatMessage({id: 'admin/warehouse.label.status'}),
         cellRenderer: ({ cellData }: any) => {
           return (
             <Tag type={cellData ? "success" : "regular"}>
-              {cellData ? "Active" : "Inactive"}
+              {cellData ? intl.formatMessage({id: 'admin/warehouse.active.success'}) : intl.formatMessage({id: 'admin/warehouse.active.regular'})}
             </Tag>
           )
         },
@@ -50,12 +43,14 @@ const Warehouse: FC<WarehouseProps> = ({ warehouses }) => {
   }))
 
   return (
-    <Table
-      fullWidth
-      schema={warehouseSchema}
-      items={warehouseItems}
-      density="medium"
-    />
+    <div className={`pt6`}>
+      <Table
+        fullWidth={true}
+        schema={warehouseSchema}
+        items={warehouseItems}
+        density="medium"
+      />
+    </div>
   )
 }
 
