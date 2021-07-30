@@ -10,6 +10,8 @@ type Query {
 type Mutation {
   updateShippingPolicy(input: ShippingPolicyInput!): ShippingPolicy
   updateShippingRate(carrierId: String, searchZipCode: String, input: [ShippingRateInput]): ShippingRate
+  createDock: Boolean
+  createWarehouse: Boolean
   createOrUpdatePromotion(
     newTotalValueFloor: Int, 
     promotionId: String, 

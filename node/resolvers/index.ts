@@ -2,8 +2,14 @@ import {
   queries as shippingQueries,
   mutations as shippingMutations
 } from './shipping'
-import { queries as warehouseQueries } from './warehouse'
-import { queries as dockQueries } from './dock'
+import { 
+  queries as warehouseQueries,
+  mutations as warehouseMutations
+ } from './warehouse'
+import { 
+  queries as dockQueries,
+  mutations as dockMutations
+} from './dock'
 import { 
   queries as freightQueries,
   mutations as freightMutations
@@ -24,6 +30,8 @@ export const resolvers = {
   Mutation: {
     ...shippingMutations,
     ...freightMutations,
-    ...promotionMutations
+    ...promotionMutations,
+    ...warehouseMutations,
+    ...dockMutations
   }
 }

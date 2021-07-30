@@ -6,6 +6,7 @@ import {
 } from '@vtex/api'
 import { pipe } from 'ramda'
 import { statusToError } from '../utils'
+import { CREATE_WAREHOUSE_OBJECT } from '../utils/constants'
 
 const TWO_SECONDS = 2 * 1000
 
@@ -29,14 +30,23 @@ export default class Warehouses extends JanusClient {
     return this.get(this.routes.warehouses)
   }
 
+  public createWarehouse = (): Promise<string> => {
+    const defaultWarehouse = CREATE_WAREHOUSE_OBJECT
+    return this.post(this.routes.createWarehouse, defaultWarehouse)
+  }
+
   protected get = <T>(url: string, config?: RequestConfig) =>
     this.http.get<T>(url, config).catch(statusToError) as Promise<T>
+
+  protected post = <T>(url: string, data?: any, config?: RequestConfig) =>
+    this.http.post<T>(url, data, config).catch<any>(statusToError)
 
   private get routes() {
     const basePVT = '/api/logistics'
 
     return {
-      warehouses: `${basePVT}/pvt/configuration/warehouses` 
+      warehouses: `${basePVT}/pvt/configuration/warehouses`,
+      createWarehouse: `${basePVT}/pvt/configuration/warehouses` 
     }
   }
 }
