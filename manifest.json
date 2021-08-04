@@ -1,9 +1,9 @@
 {
-  "vendor": "elefantqa",
+  "vendor": "vtex",
   "name": "shipping-strategy",
   "version": "0.0.1",
   "title": "Shipping Strategy",
-  "description": "Display the shipping strategies to sellers and limit their access",
+  "description": "Display the shipping settings to sellers and allow certain data manipulation",
   "builders": {
     "react": "3.x",
     "admin": "0.x",

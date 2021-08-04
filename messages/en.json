@@ -2,7 +2,7 @@
   "admin/delivery-settings.navigation.label": "Delivery Settings",
   "admin/delivery-settings.navigation.search.kws": "delivery, settings",
   "admin/shipping-policy.title": "Delivery settings",
-  "admin/shipping-policy.name": "Delivery",
+  "admin/shipping-policy.name": "Delivery:",
   "admin/shipping-policy.label.holiday": "Holiday",
   "admin/shipping-policy.label.saturday": "Saturday",
   "admin/shipping-policy.label.sunday": "Sunday",
@@ -13,6 +13,6 @@
   "admin/shipping-rate.delivery-time": "Delivery time (days)",
   "admin/promotion.label.free-delivery-threshold": "Free delivery threshold (e.g. 100)",
   "admin/promotion.label.isActive": "Free shipping",
-  "admin/dock.name": "Dock",
-  "admin/warehouse.name": "Warehouse"
+  "admin/dock.name": "Dock:",
+  "admin/warehouse.name": "Warehouse:"
 }

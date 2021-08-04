@@ -2,7 +2,7 @@
   "admin/delivery-settings.navigation.label": "Setari livrare",
   "admin/delivery-settings.navigation.search.kws": "setari, livrare, setari livrare",
   "admin/shipping-policy.title": "Setari livrare",
-  "admin/shipping-policy.name": "Livrare",
+  "admin/shipping-policy.name": "Livrare:",
   "admin/shipping-policy.label.holiday": "Sarbatoare",
   "admin/shipping-policy.label.saturday": "Sambata",
   "admin/shipping-policy.label.sunday": "Duminica",
@@ -13,6 +13,6 @@
   "admin/shipping-rate.delivery-time": "Timp de livrare (zile)",
   "admin/promotion.label.free-delivery-threshold": "Limita livrare gratuita (e.g. 100)",
   "admin/promotion.label.isActive": "Transport gratuit",
-  "admin/dock.name": "Incarcare",
-  "admin/warehouse.name": "Depozit"
+  "admin/dock.name": "Incarcare:",
+  "admin/warehouse.name": "Depozit:"
 }
