@@ -18,6 +18,9 @@ import {
   queries as promotionQueries,
   mutations as promotionMutations
 } from './promotion'
+import {
+  mutations as onboardingMutations
+} from './onboarding'
 
 export const resolvers = {
   Query: {
@@ -32,6 +35,7 @@ export const resolvers = {
     ...freightMutations,
     ...promotionMutations,
     ...warehouseMutations,
-    ...dockMutations
+    ...dockMutations,
+    ...onboardingMutations
   }
 }

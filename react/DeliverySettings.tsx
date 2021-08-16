@@ -13,6 +13,7 @@ import UPDATE_SHIPPING_POLICY from './graphql/updateShippingPolicy.graphql'
 import CREATE_OR_UPDATE_PROMOTION from './graphql/createOrUpdatePromotion.graphql'
 import CREATE_DOCK from './graphql/createDock.graphql'
 import CREATE_WAREHOUSE from './graphql/createWarehouse.graphql'
+import UPDATE_ONBOARDING from './graphql/updateOnboarding.graphql'
 
 import { 
   Layout, 
@@ -109,6 +110,8 @@ const DeliverySettings: FC = () => {
     ]
   })
 
+  const [updateOnboarding] = useMutation(UPDATE_ONBOARDING)
+
   const { data: warehouseData, loading: warehouseLoading} = useQuery(GET_WAREHOUSES, { ssr: false })
   const { data: dockData, loading: dockLoading} = useQuery(GET_DOCKS, { ssr: false })
   const { data: shippingPolicyData, error, loading: shippingPolicyLoading } = useQuery(GET_SHIPPING_POLICIES, { ssr: false })
@@ -121,7 +124,7 @@ const DeliverySettings: FC = () => {
     if (!dockLoading && dockData.listAllDocks.length === 0) {
       createDock().then((result) => {
         if (result.data?.createDock === true) {
-          if (!warehouseLoading && warehouseData.listAllWarehouses.length === 0) createWarehouse()
+          if (!warehouseLoading && warehouseData?.listAllWarehouses?.length === 0) createWarehouse()
         }
       })
     }
@@ -158,7 +161,7 @@ const DeliverySettings: FC = () => {
   }, [idCalculatorConfiguration])
 
   useEffect(() => {
-    if (!shippingPolicyData || error) return
+    if (!shippingPolicyData?.listAllShippingPolicies?.items.length || error) return
 
     let policy = shippingPolicyData.listAllShippingPolicies.items[0]
 
@@ -251,6 +254,13 @@ const DeliverySettings: FC = () => {
     await updateShippingRate({variables: {
       ...shippingRate
     }})
+
+    await updateOnboarding({
+      variables: {
+        shippingCharge: parseFloat(shippingRate.input[0].absoluteMoneyCost),
+        freeDeliveryThreshold: freeDeliveryThreshold !== 0 && isActive ? freeDeliveryThreshold.toString() : ""
+      }
+    })
 
     await updateShippingPolicy({variables: {
       ...shippingPolicy

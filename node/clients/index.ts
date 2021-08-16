@@ -5,6 +5,7 @@ import Warehouses from './warehouse'
 import Docks from './dock'
 import ShippingRates from './freight'
 import Promotions from './promotion'
+import Onboarding from './onboarding'
 
 export class Clients extends IOClients {
   
@@ -26,5 +27,9 @@ export class Clients extends IOClients {
 
   public get promotion() {
     return this.getOrSet('promotion', Promotions)
+  }
+
+  public get onboarding() {
+    return this.getOrSet('onboarding', Onboarding)
   }
 }

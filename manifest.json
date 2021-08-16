@@ -43,7 +43,7 @@
     {
       "name": "outbound-access",
       "attrs": {
-        "host": "*.myvtex.com",
+        "host": "app.io.vtex.com",
         "path": "*"
       }
     }
