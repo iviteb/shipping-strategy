@@ -8,10 +8,10 @@ export default class Onboarding extends ExternalAppClient {
   }
 
   public async getOnboarding(): Promise<string> {
-    return this.http.get(`/elefantstage/shipping/_v/onboarding-seller/seller`)
+    return this.http.get(`/elefant/master/_v/onboarding-seller/seller`)
   }
 
   public async updateOnboarding(data: any): Promise<string> {
-    return this.http.patch(`/elefantstage/shipping/_v/onboarding-seller/seller`, data)
+    return this.http.patch(`/elefant/master/_v/onboarding-seller/seller`, data)
   }
 }
